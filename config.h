@@ -1,6 +1,6 @@
 /*-------- config.h ---------*/
 
-
+static const unsigned int gappx    = 0;
 /* See LICENSE file for copyright and license details. */
 
 
