@@ -19,13 +19,20 @@ Type=Application\n" > /usr/share/xsessions/dwm.desktop
 # change dwm status bar
 
 ```shell
+echo "dwm3s &" >> ~/.xinitrc
+```
+
+```shell
+setxkbmap -option caps:swapescape
+xset b off
+```
+
+```shell
 pkill dwm3s nohup ./dwm3s &
 ```
 
-execute dwm3s at ~/.xinitrc
 
 # find other patch
 
 [https://dwm.suckless.org/patches/](https://dwm.suckless.org/patches/)
-
 

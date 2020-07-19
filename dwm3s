@@ -1,22 +1,23 @@
 #!/bin/bash
 
-w=$(curl wttr.in/xiaoshan?format="%C+%t")
+# Dependencies: curl, alsa-utils, xorg-setxkbmap
+wea=$(curl wttr.in/xiaoshan?format="%C+%t")
 
 while true;
 do
-    b=$(cat /sys/class/power_supply/BAT1/capacity)
-    bs=$(cat /sys/class/power_supply/BAT1/status)
-    if [ "$bs" = "Discharging" ]; then
-        b=$b%-!
+    kbl=$(setxkbmap -query | awk '/layout/{print $2}')
+    vol=$(amixer get Master | tail -1 | awk '{print$4}')
+    bat=$(cat /sys/class/power_supply/BAT1/capacity)
+    batterystate=$(cat /sys/class/power_supply/BAT1/status)
+    if [ "$batterystate" = "Discharging" ]; then
+        bat=≠$bat
     elif [ $b -gt 90 ];then
-        b=
+        bat=
     else
-        b=$b%
+        bat==$bat
     fi
-    # d=$(date '+%Y.%b.%d %a %H:%M:%S')
-    d=$(date '+%H:%M:%S.%N')
-    d="${d:0:10} $(date '+%^a')"
-    xsetroot -name "$w $b $d"
+    d=$(date '+%Y%m%d %^a %H:%M:%S.%N')
+    xsetroot -name "$kbl $bat ★$vol $wea ${d:0:23}"
     sleep 0.1
 done
 
