@@ -1,0 +1,24 @@
+#!/bin/bash
+
+w=$(curl wttr.in/xiaoshan?format="%C+%t")
+
+while true;
+do
+    b=$(cat /sys/class/power_supply/BAT1/capacity)
+    bs=$(cat /sys/class/power_supply/BAT1/status)
+    if [ "$bs" = "Discharging" ]; then
+        b=$b%-!
+    elif [ $b -gt 90 ];then
+        b=
+    else
+        b=$b%
+    fi
+    # d=$(date '+%Y.%b.%d %a %H:%M:%S')
+    d=$(date '+%H:%M:%S.%N')
+    d="${d:0:10} $(date '+%^a')"
+    xsetroot -name "$w $b $d"
+    sleep 0.1
+done
+
+
+# vim:ft=bash:
