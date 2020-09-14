@@ -11,7 +11,7 @@ do
     batterystate=$(cat /sys/class/power_supply/BAT1/status)
     if [ "$batterystate" = "Discharging" ]; then
         bat=≠$bat
-    elif [ $b -gt 90 ];then
+    elif [ $bat -gt 95 ]; then
         bat=
     else
         bat==$bat
